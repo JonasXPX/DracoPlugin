@@ -1,0 +1,5 @@
+name: MeuPlugin2
+main: me.jonasxpx.meuplugin2.MeuPlugin
+version: 1.0
+commands:
+    worldset:

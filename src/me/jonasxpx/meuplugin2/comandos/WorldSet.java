@@ -13,6 +13,9 @@ public class WorldSet implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if(!sender.isOp()){
+			return true;
+		}
 		if(args.length >= 1){
 			WorldSetManager.saveLocation(args[0], ((Player)sender).getLocation());
 			sender.sendMessage("§c"+args[0]+" marcada!.");

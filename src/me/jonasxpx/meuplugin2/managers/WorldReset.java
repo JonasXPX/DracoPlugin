@@ -7,7 +7,8 @@ import org.bukkit.World;
 public class WorldReset {
 
 	public static void resetRegions(World world){
-		File f = new File(world.getWorldFolder().getParent() + "/regions");
+		System.out.println(world.getWorldFolder().getPath());
+		File f = new File(world.getWorldFolder().getAbsolutePath() + "/region");
 		for(File fx : f.listFiles()){
 			fx.delete();
 			System.out.println(fx.getAbsolutePath() + " foi deletado!");

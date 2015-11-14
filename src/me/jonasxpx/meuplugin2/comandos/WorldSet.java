@@ -21,6 +21,7 @@ public class WorldSet implements CommandExecutor{
 			sender.sendMessage("§c"+args[0]+" marcada!.");
 			return true;
 		}
+		sender.sendMessage("§c/worldset <name>");
 		return false;
 	}
 }

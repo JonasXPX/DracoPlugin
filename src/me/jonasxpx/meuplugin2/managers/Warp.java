@@ -15,23 +15,19 @@ public class Warp {
 	public static void makeWarp(Location loc, String warp) {
 		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp + ".warp");
 		file.mkdir();
-		if(!file.exists()){
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
-		fc.set("world", loc.getWorld().getName());
-		fc.set("x", loc.getX());
-		fc.set("y", loc.getY());
-		fc.get("z", loc.getZ());
-		fc.get("yaw", loc.getYaw());
-		fc.get("pitch", loc.getPitch());
 		try {
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
+			fc.set("world", loc.getWorld().getName());
+			fc.set("x", loc.getX());
+			fc.set("y", loc.getY());
+			fc.get("z", loc.getZ());
+			fc.get("yaw", loc.getYaw());
+			fc.get("pitch", loc.getPitch());
 			fc.save(file);
-		} catch (IOException e) {e.printStackTrace();		}
+		} catch (IOException e) {e.printStackTrace();}
 	}
 	public static Location getWarp(String name){
 		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + name + ".warp");
@@ -44,5 +40,14 @@ public class Warp {
 				fc.getDouble("z"),
 				Float.parseFloat(fc.getString("yaw")),
 				Float.parseFloat(fc.getString("pitch")));
+	}
+	
+	public static boolean delWarp(String warp){
+		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp + ".warp");
+		if(!file.exists()){
+			return false;
+		}
+		file.delete();
+		return true;
 	}
 }

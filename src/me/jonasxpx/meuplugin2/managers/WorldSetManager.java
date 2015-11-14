@@ -19,4 +19,13 @@ public class WorldSetManager {
 		return new Location(Bukkit.getWorld(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]), Double.parseDouble(loc[3]));
 	}
 	
+	public static boolean deleteLocation(String name){
+		MeuPlugin ins = MeuPlugin.instance;
+		if(!ins.getConfig().contains("LocationSign." + name.toLowerCase()))
+			return false;
+		else{
+			ins.getConfig().set("LocationSign." + name.toLowerCase(), null);
+			return true;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package me.jonasxpx.meuplugin2;
 
+import me.jonasxpx.meuplugin2.comandos.DelWarp;
 import me.jonasxpx.meuplugin2.comandos.WarpSet;
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
@@ -20,6 +21,7 @@ public class MeuPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new PlayerInteractEvents(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());
+		getCommand("delwarp").setExecutor(new DelWarp());
 	}
 	
 	@Override

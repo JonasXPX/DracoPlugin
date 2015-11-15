@@ -1,6 +1,7 @@
 package me.jonasxpx.meuplugin2.managers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Utils {
@@ -14,4 +15,7 @@ public class Utils {
 			return false;
 		return true;
 	}
+
+	
+	
 }

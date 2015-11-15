@@ -11,7 +11,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MeuPlugin extends JavaPlugin{
-
 	
 	public static MeuPlugin instance;
 	
@@ -29,5 +28,5 @@ public class MeuPlugin extends JavaPlugin{
 		HandlerList.unregisterAll(this);
 		WorldReset.resetRegions(Bukkit.getWorld("Minerar"));
 	}
-	
+		
 }

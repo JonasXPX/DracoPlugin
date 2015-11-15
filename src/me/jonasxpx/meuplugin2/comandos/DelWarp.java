@@ -24,5 +24,4 @@ public class DelWarp implements CommandExecutor{
 		sender.sendMessage("§cUse /delwarp <warp>");
 		return false;
 	}
-
 }

@@ -1,8 +1,8 @@
 package me.jonasxpx.meuplugin2;
 
-import me.jonasxpx.meuplugin2.comandos.DelWarp;
-import me.jonasxpx.meuplugin2.comandos.WarpSet;
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
+import me.jonasxpx.meuplugin2.comandos.warps.DelWarp;
+import me.jonasxpx.meuplugin2.comandos.warps.WarpSet;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.managers.WorldReset;
 

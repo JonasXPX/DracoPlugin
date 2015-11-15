@@ -1,4 +1,4 @@
-package me.jonasxpx.meuplugin2.comandos;
+package me.jonasxpx.meuplugin2.comandos.warps;
 
 import me.jonasxpx.meuplugin2.managers.WorldSetManager;
 

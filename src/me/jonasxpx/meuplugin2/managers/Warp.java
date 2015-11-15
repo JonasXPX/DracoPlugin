@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class Warp {
 
 	public static void makeWarp(Location loc, String warp) {
-		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp + ".warp");
+		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp.toLowerCase() + ".warp");
 		file.mkdir();
 		try {
 			if(!file.exists()){
@@ -30,7 +30,7 @@ public class Warp {
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	public static Location getWarp(String name){
-		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + name + ".warp");
+		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + name.toLowerCase() + ".warp");
 		if(!file.exists()){return null;}
 		FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
 		return new Location(
@@ -43,7 +43,7 @@ public class Warp {
 	}
 	
 	public static boolean delWarp(String warp){
-		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp + ".warp");
+		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp.toLowerCase() + ".warp");
 		if(!file.exists()){
 			return false;
 		}

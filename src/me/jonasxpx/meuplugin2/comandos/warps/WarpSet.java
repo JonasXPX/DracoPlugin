@@ -2,6 +2,7 @@ package me.jonasxpx.meuplugin2.comandos.warps;
 
 import static me.jonasxpx.meuplugin2.managers.Utils.checkPerm;
 import static me.jonasxpx.meuplugin2.managers.Warp.getWarp;
+import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.managers.CallDelay;
 
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class WarpSet implements CommandExecutor{
 				sender.sendMessage("§cWarp não encontrada");
 				return true;
 			}
-			new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
+			new CallDelay(sender, sender.hasPermission("draco.delay") ? 3 : 3) {
 				@Override
 				public void run() {
 					((Player)sender).teleport(warp);

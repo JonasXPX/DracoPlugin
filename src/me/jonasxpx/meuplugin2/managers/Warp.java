@@ -14,7 +14,7 @@ public class Warp {
 
 	public static void makeWarp(Location loc, String warp) {
 		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp.toLowerCase() + ".warp");
-		file.mkdir();
+		file.getParentFile().mkdir();
 		try {
 			if(!file.exists()){
 				file.createNewFile();
@@ -23,9 +23,9 @@ public class Warp {
 			fc.set("world", loc.getWorld().getName());
 			fc.set("x", loc.getX());
 			fc.set("y", loc.getY());
-			fc.get("z", loc.getZ());
-			fc.get("yaw", loc.getYaw());
-			fc.get("pitch", loc.getPitch());
+			fc.set("z", loc.getZ());
+			fc.set("yaw", loc.getYaw());
+			fc.set("pitch", loc.getPitch());
 			fc.save(file);
 		} catch (IOException e) {e.printStackTrace();}
 	}

@@ -1,6 +1,6 @@
 package me.jonasxpx.meuplugin2.comandos.warps;
 
-import me.jonasxpx.meuplugin2.managers.WorldSetManager;
+import me.jonasxpx.meuplugin2.managers.Warp;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,7 +15,7 @@ public class DelWarp implements CommandExecutor{
 			return true;
 		}
 		if(args.length >= 1){
-			if(WorldSetManager.deleteLocation(args[0]))
+			if(Warp.delWarp(args[0]))
 				sender.sendMessage("§bWarp " + args[0] + " deletada");
 			else
 				sender.sendMessage("§bWarp não existe");

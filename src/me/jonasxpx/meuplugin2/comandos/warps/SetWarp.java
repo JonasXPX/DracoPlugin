@@ -5,6 +5,7 @@ import me.jonasxpx.meuplugin2.managers.Warp;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class SetWarp implements CommandExecutor{
 
@@ -15,10 +16,12 @@ public class SetWarp implements CommandExecutor{
 			sender.sendMessage("§c Você não pode marcar warps");
 			return true;
 		}
-		if(Warp.delWarp(args[0]))
-			sender.sendMessage("§bWarp "+ args[0] +" deletada");
-		else
-		 sender.sendMessage("§cWarp não encontrada");
+		if(args.length >= 1){
+			Warp.makeWarp(((Player)sender).getLocation(), args[0]);
+			sender.sendMessage("§6" + args[0] + " Marcada!.");
+			return true;
+		}
+		sender.sendMessage("§cUse /setwarp <nome>");
 		return false;
 	}
 }

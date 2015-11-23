@@ -2,12 +2,11 @@ package me.jonasxpx.meuplugin2;
 
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
 import me.jonasxpx.meuplugin2.comandos.warps.DelWarp;
+import me.jonasxpx.meuplugin2.comandos.warps.ListWarps;
 import me.jonasxpx.meuplugin2.comandos.warps.SetWarp;
 import me.jonasxpx.meuplugin2.comandos.warps.WarpSet;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
-import me.jonasxpx.meuplugin2.managers.WorldReset;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,12 +22,12 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("warp").setExecutor(new WarpSet());
 		getCommand("delwarp").setExecutor(new DelWarp());
 		getCommand("setwarp").setExecutor(new SetWarp());
+		getCommand("listwarps").setExecutor(new ListWarps());
 	}
 	
 	@Override
 	public void onDisable() {
 		HandlerList.unregisterAll(this);
-		WorldReset.resetRegions(Bukkit.getWorld("Minerar"));
 	}
 		
 }

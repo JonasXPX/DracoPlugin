@@ -6,3 +6,4 @@ commands:
     warp:
     delwarp:
     setwarp:
+    listwarps:

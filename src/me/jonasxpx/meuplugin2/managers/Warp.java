@@ -1,7 +1,10 @@
 package me.jonasxpx.meuplugin2.managers;
 
+import java.awt.List;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import me.jonasxpx.meuplugin2.MeuPlugin;
 
@@ -41,6 +44,15 @@ public class Warp {
 				Float.parseFloat(fc.getString("yaw")),
 				Float.parseFloat(fc.getString("pitch")));
 	}
+	public static Collection<String> getWarps(){
+		Collection<String> list = new ArrayList<String>();
+		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/");
+		for(String st : file.list()){
+			if(st.matches(".*.warp$"))
+			list.add(st.replace(".warp", ""));
+		}
+		return list;
+	}
 	
 	public static boolean delWarp(String warp){
 		File file = new File(MeuPlugin.instance.getDataFolder() + "/warps/" + warp.toLowerCase() + ".warp");
@@ -50,4 +62,6 @@ public class Warp {
 		file.delete();
 		return true;
 	}
+	
+
 }

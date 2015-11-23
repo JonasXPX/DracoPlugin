@@ -17,7 +17,8 @@ public class ListWarps implements CommandExecutor{
 		StringBuilder sb = new StringBuilder();
 		sb.append("§6Todas as Warps: ");
 		for(String st : Warp.getWarps()){
-			sb.append("§f" + st + "§6, ");
+			if(sender.hasPermission("draco.warps." + st))
+				sb.append("§f" + st + "§6, ");
 		}
 		sb.append(".");
 		if(args.length == 0){

@@ -29,5 +29,4 @@ public class MeuPlugin extends JavaPlugin{
 	public void onDisable() {
 		HandlerList.unregisterAll(this);
 	}
-		
 }

@@ -2,7 +2,6 @@ package me.jonasxpx.meuplugin2.comandos.warps;
 
 import static me.jonasxpx.meuplugin2.managers.Utils.checkPerm;
 import static me.jonasxpx.meuplugin2.managers.Warp.getWarp;
-import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.managers.CallDelay;
 
 import org.bukkit.Location;
@@ -31,6 +30,7 @@ public class WarpSet implements CommandExecutor{
 				public void run() {
 					((Player)sender).teleport(warp);
 					sender.sendMessage("§b» Teleportado para §e" + args[0].toLowerCase());
+					CallDelay.unregister(sender.getName());
 				}
 			}.startAfter();
 			return true;

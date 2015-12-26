@@ -1,5 +1,7 @@
 package me.jonasxpx.meuplugin2;
 
+import java.io.File;
+
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
 import me.jonasxpx.meuplugin2.comandos.warps.DelWarp;
 import me.jonasxpx.meuplugin2.comandos.warps.ListWarps;
@@ -13,10 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MeuPlugin extends JavaPlugin{
 	
 	public static MeuPlugin instance;
+	public static File data;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
+		data = this.getDataFolder();
 		getServer().getPluginManager().registerEvents(new PlayerInteractEvents(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());

@@ -25,7 +25,7 @@ public class Warp {
 			fc.set("world", loc.getWorld().getName());
 			fc.set("x", loc.getX());
 			fc.set("y", loc.getY());
-			fc.set("	z", loc.getZ());
+			fc.set("z", loc.getZ());
 			fc.set("yaw", loc.getYaw());
 			fc.set("pitch", loc.getPitch());
 			fc.save(file);

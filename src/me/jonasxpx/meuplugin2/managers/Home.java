@@ -1,13 +1,10 @@
 package me.jonasxpx.meuplugin2.managers;
 
-import java.io.File;
 
-import javax.annotation.Nullable;
 
-import me.jonasxpx.meuplugin2.MeuPlugin;
+import static me.jonasxpx.meuplugin2.MeuPlugin.homeSql;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class Home {
@@ -18,9 +15,28 @@ public class Home {
 		this.player = player;
 	}
 
-	@Nullable
-	public void setHome(String name){
-		File home = new File(MeuPlugin.data + "/home/" + player.getName().toLowerCase() + ".yml");
-		FileConfiguration fc = YamlConfiguration.loadConfiguration(home);
+	public void setHome(final String name){
+		final Location loc = player.getLocation();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(homeSql.update(player, name, loc) == -1){
+					homeSql.create(player, name, loc);
+					player.sendMessage("§bVocê marcou uma nova posição");
+				}else
+					player.sendMessage("§bVocê remarcou uma nova posição");
+			}
+		}, "home - " + name + " : " + player.getName()).start();
+	}
+	public void deleteHome(final String name){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(homeSql.delete(player.getName(), name))
+					player.sendMessage("§bVocê deletou uma posição: §6" + name);
+				else
+					player.sendMessage("§bNão foi possível deletar essa posição.");
+			}
+		}).start();
 	}
 }

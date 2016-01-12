@@ -20,18 +20,19 @@ public class HomeManagerSQL {
 			System.out.println("Conectando...");
 			conn = DriverManager.getConnection("jdbc:mysql://" + IP + "/" + database, username, passw);
 			stat = conn.createStatement();
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Home (Nick VARCHAR(32), Name VARCHAR(64), x SMALLINT(12), y SMALLINT(12), z SMALLINT(12), world VARCHAR(32), PRIMARY KEY (Nick))");
+			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Home (Nick VARCHAR(32), Name VARCHAR(64), x SMALLINT(12), y SMALLINT(12), z SMALLINT(12), world VARCHAR(32), invited SMALLINT(2), PRIMARY KEY (Nick))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void update(Player player, String name, Location loc){
+	public int update(Player player, String name, Location loc){
 		try {
-			stat.executeUpdate("UPDATE Home SET x = " + loc.getBlockX() + ",y = " + loc.getBlockY() + ",z = " + loc.getBlockZ() + ",world = '" + loc.getWorld().getName() +"' WHERE Nick = '" + player.getName() + "' AND Name = '" +name+ "'");
+			return stat.executeUpdate("UPDATE Home SET x = " + loc.getBlockX() + ",y = " + loc.getBlockY() + ",z = " + loc.getBlockZ() + ",world = '" + loc.getWorld().getName() +"' WHERE Nick = '" + player.getName() + "' AND Name = '" +name+ "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return -1;
 	}
 	public int update(String player, String name, int x, int y, int z, String world){
 		try {
@@ -42,15 +43,23 @@ public class HomeManagerSQL {
 		return -1;
 	}
 	
+	
+	/**
+	 * Create a home location
+	 * @param player Player sets a home location
+	 * @param name name of location
+	 * @param loc Possition of location
+	 */
 	public void create(Player player, String name, Location loc){
 		try{
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Home(Nick, Name, x, y, z, world) VALUES(?,?,?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Home(Nick, Name, x, y, z, world) VALUES(?,?,?,?,?,?,?)");
 			ps.setString(1, player.getName());
 			ps.setString(2, name);
 			ps.setInt(3, loc.getBlockX());
 			ps.setInt(4, loc.getBlockY());
 			ps.setInt(5, loc.getBlockZ());
 			ps.setString(6, loc.getWorld().getName());
+			ps.setInt(7, 0);
 			ps.execute();
 			ps.close();
 		}catch(SQLException e){e.printStackTrace();}
@@ -58,20 +67,25 @@ public class HomeManagerSQL {
 	
 	public void create(String player, String name, int x, int y, int z, String world){
 		try{
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Home(Nick, Name, x, y, z, world) VALUES(?,?,?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Home(Nick, Name, x, y, z, world) VALUES(?,?,?,?,?,?,?)");
 			ps.setString(1, player);
 			ps.setString(2, name);
 			ps.setInt(3, x);
 			ps.setInt(4, y);
 			ps.setInt(5, z);
 			ps.setString(6, world);
+			ps.setInt(7, 0);
 			ps.execute();
 			ps.close();
 		}catch(SQLException e){e.printStackTrace();}
 	}
 	
-	public void delete(String player, String name){
-		//
+	public boolean delete(String player, String name){
+		try{
+			if(stat.executeUpdate("DELETE FROM Home WHERE Nick = '"+player+"' AND Name = '" + name + "'") == 1)
+				return true;
+		}catch(SQLException e){e.printStackTrace();}
+		return false;
 	}
 	
 	

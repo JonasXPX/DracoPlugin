@@ -3,6 +3,7 @@ package me.jonasxpx.meuplugin2.managers;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -78,6 +79,23 @@ public class HomeManagerSQL {
 			ps.execute();
 			ps.close();
 		}catch(SQLException e){e.printStackTrace();}
+	}
+	
+	public String getStringLocation(String player, String name){
+		try{
+			ResultSet rs = stat.executeQuery("SELECT * FROM Home WHERE Nick = '"+player+"' AND Name = '"+name+"");
+			if(rs.next() == false){return null;}
+			StringBuilder sb = new StringBuilder();
+			sb.append(rs.getInt("x"));
+			sb.append(",");
+			sb.append(rs.getInt("y"));
+			sb.append(",");
+			sb.append(rs.getInt("z"));
+			sb.append(",");
+			sb.append(rs.getString("world"));
+			return sb.toString();
+		}catch(SQLException e){e.printStackTrace();}
+		return null;
 	}
 	
 	public boolean delete(String player, String name){

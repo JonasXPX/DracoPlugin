@@ -4,6 +4,7 @@ package me.jonasxpx.meuplugin2.managers;
 
 import static me.jonasxpx.meuplugin2.MeuPlugin.homeSql;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -28,6 +29,21 @@ public class Home {
 			}
 		}, "home - " + name + " : " + player.getName()).start();
 	}
+	
+	public void teleport(final String name){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String loc;
+				if((loc = homeSql.getStringLocation(player.getName(), name)) != null){
+					String locArray[] = loc.split(",");
+					player.teleport(new Location(Bukkit.getWorld(locArray[3]), Double.parseDouble(locArray[0]), Double.parseDouble(locArray[1]), Double.parseDouble(locArray[2])));
+					player.sendMessage("§bVocê foi teleportado para §6" + name.toLowerCase());
+				}
+			}
+		}, "home - " + name + " : " + player.getName());
+	}
+	
 	public void deleteHome(final String name){
 		new Thread(new Runnable() {
 			@Override
@@ -37,6 +53,7 @@ public class Home {
 				else
 					player.sendMessage("§bNão foi possível deletar essa posição.");
 			}
-		}).start();
+		}, "home - " + name + " : " + player.getName()).start();
 	}
+
 }

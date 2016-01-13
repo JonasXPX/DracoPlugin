@@ -38,7 +38,7 @@ public abstract class CallDelay extends BukkitRunnable{
 	
 	
 	/**** STATIC ****/
-	public static void register(String string){
+	private static void register(String string){
 		time.add(string);
 	}
 	

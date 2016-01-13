@@ -1,4 +1,4 @@
-package me.jonasxpx.meuplugin2.comandos;
+package me.jonasxpx.meuplugin2.comandos.homes;
 
 import me.jonasxpx.meuplugin2.managers.CallDelay;
 
@@ -23,7 +23,8 @@ public class Home implements CommandExecutor{
 					home.teleport("default");
 					CallDelay.unregister(sender.getName());
 				}
-			};
+			}.startAfter();
+			return true;
 		}
 		new CallDelay(sender, 3) {
 			@Override

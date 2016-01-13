@@ -21,11 +21,12 @@ public class Home {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if(homeSql.update(player, name, loc) == -1){
+				int v;
+				if((v = homeSql.update(player, name, loc)) == 0){
 					homeSql.create(player, name, loc);
-					player.sendMessage("§bVocê marcou uma nova posição");
+					player.sendMessage("§6Você marcou uma nova posição: §6" + name);
 				}else
-					player.sendMessage("§bVocê remarcou uma nova posição");
+					player.sendMessage("§6Você remarcou uma nova posição: §6" + name);
 			}
 		}, "home - " + name + " : " + player.getName()).start();
 	}
@@ -37,11 +38,28 @@ public class Home {
 				String loc;
 				if((loc = homeSql.getStringLocation(player.getName(), name)) != null){
 					String locArray[] = loc.split(",");
-					player.teleport(new Location(Bukkit.getWorld(locArray[3]), Double.parseDouble(locArray[0]), Double.parseDouble(locArray[1]), Double.parseDouble(locArray[2])));
+					player.sendMessage(locArray.length + "");
+					player.teleport(new Location(Bukkit.getWorld(locArray[5]), Double.parseDouble(locArray[0]), Double.parseDouble(locArray[1]), Double.parseDouble(locArray[2]), Float.parseFloat(locArray[3]), Float.parseFloat(locArray[4])));
 					player.sendMessage("§bVocê foi teleportado para §6" + name.toLowerCase());
+					return;
 				}
+				player.sendMessage("§cVocê não possui um local marcado com esse nome.");
 			}
-		}, "home - " + name + " : " + player.getName());
+		}, "home - " + name + " : " + player.getName()).start();
+	}
+	
+	public void listHomes(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String listhome = null;
+				if((listhome = homeSql.listHomes(player.getName())) != null){
+					player.sendMessage(listhome);
+					return;
+				}
+				player.sendMessage("§cVocê não tem nenhuma home marcada");
+			}
+		}).start();
 	}
 	
 	public void deleteHome(final String name){

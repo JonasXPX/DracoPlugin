@@ -8,3 +8,5 @@ commands:
     setwarp:
     listwarps:
     home:
+    listhomes:
+    sethome:

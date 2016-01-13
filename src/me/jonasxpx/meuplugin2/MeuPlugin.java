@@ -2,8 +2,10 @@ package me.jonasxpx.meuplugin2;
 
 import java.io.File;
 
-import me.jonasxpx.meuplugin2.comandos.Home;
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
+import me.jonasxpx.meuplugin2.comandos.homes.Home;
+import me.jonasxpx.meuplugin2.comandos.homes.ListHomes;
+import me.jonasxpx.meuplugin2.comandos.homes.SetHome;
 import me.jonasxpx.meuplugin2.comandos.warps.DelWarp;
 import me.jonasxpx.meuplugin2.comandos.warps.ListWarps;
 import me.jonasxpx.meuplugin2.comandos.warps.SetWarp;
@@ -31,6 +33,9 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("setwarp").setExecutor(new SetWarp());
 		getCommand("listwarps").setExecutor(new ListWarps());
 		getCommand("home").setExecutor(new Home());
+		getCommand("sethome").setExecutor(new SetHome());
+		getCommand("listhomes").setExecutor(new ListHomes());
+		homeSql = new HomeManagerSQL("192.168.1.5", "mine", "jonas", "", 3306);
 	}
 	
 	@Override

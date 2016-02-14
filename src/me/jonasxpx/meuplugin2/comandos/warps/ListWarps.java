@@ -1,5 +1,7 @@
 package me.jonasxpx.meuplugin2.comandos.warps;
 
+import java.util.Arrays;
+
 import me.jonasxpx.meuplugin2.managers.StringUtils;
 import me.jonasxpx.meuplugin2.managers.Warp;
 
@@ -16,14 +18,14 @@ public class ListWarps implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("§6Todas as Warps: ");
-		for(String st : Warp.getWarps()){
-			if(sender.hasPermission("draco.warps." + st))
-				sb.append("§f" + st + "§6, ");
-		}
+		Warp.getWarps().forEach(warps -> {
+			if(sender.hasPermission("draco.warps." + warps))
+				sb.append("§f" + warps + "§6, ");
+		});
 		sb.append(".");
 		if(args.length == 0){
 			ChatPage cp = ChatPaginator.paginate(sb.toString(), 1);
-			for(String sx : cp.getLines())sender.sendMessage(sx);
+			Arrays.asList(cp.getLines()).forEach(lines -> sender.sendMessage(lines));
 			sender.sendMessage("§6Página 1 de " + cp.getTotalPages());
 			return true;
 		}

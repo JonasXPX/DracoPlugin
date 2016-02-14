@@ -25,7 +25,7 @@ public class WarpSet implements CommandExecutor{
 				sender.sendMessage("§cWarp não encontrada");
 				return true;
 			}
-			new CallDelay(sender, sender.hasPermission("draco.delay") ? 3 : 3) {
+			new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 				@Override
 				public void run() {
 					((Player)sender).teleport(warp);
@@ -33,7 +33,7 @@ public class WarpSet implements CommandExecutor{
 					CallDelay.unregister(sender.getName());
 				}
 			}.startAfter();
-			return true;
+ 			return true;
 		}
 		sender.sendMessage("§c Use /warp <nome>");
 		return true;

@@ -35,7 +35,7 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("home").setExecutor(new Home());
 		getCommand("sethome").setExecutor(new SetHome());
 		getCommand("listhomes").setExecutor(new ListHomes());
-		homeSql = new HomeManagerSQL("192.168.1.5", "mine", "jonas", "", 3306);
+		homeSql = new HomeManagerSQL("localhost", "mc_4720", "root", "", 3306);
 	}
 	
 	@Override

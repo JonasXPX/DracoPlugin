@@ -17,7 +17,7 @@ public class Home implements CommandExecutor{
 		}
 		final me.jonasxpx.meuplugin2.managers.Home home = new me.jonasxpx.meuplugin2.managers.Home((Player)sender);
 		if(args.length == 0){
-			new CallDelay(sender, 3) {
+			new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 				@Override
 				public void run() {
 					home.teleport("default");
@@ -26,7 +26,7 @@ public class Home implements CommandExecutor{
 			}.startAfter();
 			return true;
 		}
-		new CallDelay(sender, 3) {
+		new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 			@Override
 			public void run() {
 				home.teleport(args[0]);

@@ -19,6 +19,7 @@ public class HomeManagerSQL {
 	public HomeManagerSQL(String IP, String database, String username, String passw, int port){
 		try {
 			System.out.println("Conectando...");
+			DriverManager.setLoginTimeout(10);
 			conn = DriverManager.getConnection("jdbc:mysql://" + IP + "/" + database, username, passw);
 			stat = conn.createStatement();
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Home (Nick VARCHAR(32), Name VARCHAR(64), x DOUBLE(12,2), y DOUBLE(12,2), z DOUBLE(12,2),yaw FLOAT(12),pitch FLOAT(12), world VARCHAR(32), invited SMALLINT(2))");

@@ -3,10 +3,12 @@ package me.jonasxpx.meuplugin2.managers;
 
 
 import static me.jonasxpx.meuplugin2.MeuPlugin.homeSql;
+import me.jonasxpx.meuplugin2.MeuPlugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Home {
 	
@@ -29,17 +31,23 @@ public class Home {
 	}
 	
 	public void teleport(final String name){
-		new Thread((Runnable) () -> {
-			String loc;
-			if((loc = homeSql.getStringLocation(player.getName(), name)) != null){
-				String locArray[] = loc.split(",");
-				player.sendMessage(locArray.length + "");
-				player.teleport(new Location(Bukkit.getWorld(locArray[5]), Double.parseDouble(locArray[0]), Double.parseDouble(locArray[1]), Double.parseDouble(locArray[2]), Float.parseFloat(locArray[3]), Float.parseFloat(locArray[4])));
-				player.sendMessage("§bVocê foi teleportado para §6" + name.toLowerCase());
-				return;
+		
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				String loc;
+				if((loc = homeSql.getStringLocation(player.getName(), name)) != null){
+					String locArray[] = loc.split(",");
+					player.teleport(new Location(Bukkit.getWorld(locArray[5]), Double.parseDouble(locArray[0]), Double.parseDouble(locArray[1]), Double.parseDouble(locArray[2]), Float.parseFloat(locArray[3]), Float.parseFloat(locArray[4])));
+					player.sendMessage("§bVocê foi teleportado para §6" + name.toLowerCase());
+					return;
+				}
+				player.sendMessage("§cVocê não possui um local marcado com esse nome.");
 			}
-			player.sendMessage("§cVocê não possui um local marcado com esse nome.");
-		}, "home - " + name + " : " + player.getName()).start();
+		}.runTask(MeuPlugin.instance);
+//		new Thread((Runnable) () -> {
+	//	}, "home - " + name + " : " + player.getName()).start();
 	}
 	
 	public void listHomes(){

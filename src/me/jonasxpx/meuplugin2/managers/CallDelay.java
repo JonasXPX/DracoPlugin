@@ -29,13 +29,11 @@ public abstract class CallDelay extends BukkitRunnable{
 	}
 	public void startAfter(){
 		try {
-			this.runTaskLater(MeuPlugin.instance, 20 * seconds);
+			this.runTaskLater(MeuPlugin.instance, seconds == 0 ? seconds : 20 * seconds);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	/**** STATIC ****/
 	private static void register(String string){

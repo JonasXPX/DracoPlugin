@@ -7,6 +7,9 @@ commands:
     delwarp:
     setwarp:
     listwarps:
+       aliases: [warps,warplist]
     home:
+       aliases: [homes]
     listhomes:
+       aliases: [homelist, homeslist]
     sethome:

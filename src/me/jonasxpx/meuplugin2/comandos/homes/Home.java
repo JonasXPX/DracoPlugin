@@ -33,7 +33,6 @@ public class Home implements CommandExecutor{
 				CallDelay.unregister(sender.getName());
 			}
 		}.startAfter();
-		
 		return false;
 	}
 

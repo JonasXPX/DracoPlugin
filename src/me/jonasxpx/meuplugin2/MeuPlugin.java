@@ -24,6 +24,8 @@ public class MeuPlugin extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		instance = this;
 		data = this.getDataFolder();
 		getServer().getPluginManager().registerEvents(new PlayerInteractEvents(), this);
@@ -35,11 +37,20 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("home").setExecutor(new Home());
 		getCommand("sethome").setExecutor(new SetHome());
 		getCommand("listhomes").setExecutor(new ListHomes());
-		homeSql = new HomeManagerSQL("localhost", "mc_4720", "root", "", 3306);
+		loadConfig();
 	}
 	
 	@Override
 	public void onDisable() {
 		HandlerList.unregisterAll(this);
+	}
+	
+	protected void loadConfig(){
+		String ipDb = getConfig().getString("Db.Host");
+		String Db = getConfig().getString("Db.DataBase");
+		String user = getConfig().getString("Db.User");
+		String pass = getConfig().getString("Db.Password");
+		int port = getConfig().getInt("Db.Port");
+		homeSql = new HomeManagerSQL(ipDb, Db, user, pass, port);
 	}
 }

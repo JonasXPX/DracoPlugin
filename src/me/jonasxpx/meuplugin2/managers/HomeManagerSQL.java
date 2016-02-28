@@ -83,7 +83,7 @@ public class HomeManagerSQL {
 		}catch(SQLException e){e.printStackTrace();}
 	}
 	
-	public String getStringLocation(String player, String name){
+	public synchronized String getStringLocation(String player, String name){
 		try{
 			ResultSet rs = stat.executeQuery("SELECT * FROM Home WHERE Nick = '"+player+"' AND Name = '"+name+"'");
 			if(rs.next() == false){return null;}
@@ -128,11 +128,5 @@ public class HomeManagerSQL {
 	}
 	
 	
-	public static void main(String[] args) {
-		HomeManagerSQL m = new HomeManagerSQL("192.168.1.2", "none", "none", "none", 3306);
-		if(m.update("Jonas", "casa", 2,1,5,"world2") == 0){
-			m.create("jonas", "casa", 1, 1, 1, "world");
-		}
-	}
 	
 }

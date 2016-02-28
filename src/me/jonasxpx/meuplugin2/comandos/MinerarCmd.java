@@ -19,7 +19,7 @@ public class MinerarCmd implements CommandExecutor{
 				((Player)sender).teleport(Warp.getWarp("minerar"));
 				CallDelay.unregister(sender.getName());
 			}
-		}.startAfter();;
+		}.startAfter();
 		return true;
 	}
 }

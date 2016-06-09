@@ -44,4 +44,8 @@ public abstract class CallDelay extends BukkitRunnable{
 		time.remove(string);
 	}
 	
+	public static boolean isRegistred(String string){
+		return time.contains(string);
+	}
+	
 }

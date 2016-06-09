@@ -46,7 +46,7 @@ public class Home {
 				player.sendMessage("§cVocê não possui um local marcado com esse nome.");
 			}
 		}.runTask(MeuPlugin.instance);
-//		new Thread((Runnable) () -> {
+	//	new Thread((Runnable) () -> {
 	//	}, "home - " + name + " : " + player.getName()).start();
 	}
 	

@@ -26,6 +26,10 @@ public class Home implements CommandExecutor{
 			}.startAfter();
 			return true;
 		}
+		if(CallDelay.isRegistred(sender.getName())){
+			sender.sendMessage("§6Você já esta aguardando.");
+			return true;
+		}
 		new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 			@Override
 			public void run() {

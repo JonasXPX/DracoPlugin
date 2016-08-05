@@ -13,6 +13,10 @@ public class WorldSetManager {
 		ins.saveConfig();
 	}
 	
+	public static boolean containsLocation(String name){
+		return MeuPlugin.instance.getConfig().contains("LocationSign." + name.toLowerCase());
+	}
+	
 	public static Location getLocation(String name){
 		MeuPlugin ins = MeuPlugin.instance;
 		String[] loc = ins.getConfig().getString("LocationSign." + name.toLowerCase()).split(";");

@@ -12,8 +12,11 @@ public class MinerarCmd implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(final CommandSender sender, Command arg1, String label, String[] args) {
+		if(CallDelay.isRegistred(sender.getName())){
+			sender.sendMessage("§6Você já esta aguardando.");
+			return true;
+		}
 		new CallDelay(((Player)sender), 3) {
-			
 			@Override
 			public void run() {
 				((Player)sender).teleport(Warp.getWarp("minerar"));

@@ -18,6 +18,10 @@ public class PlayerInteractEvents implements Listener{
 				Sign sign = (Sign) e.getClickedBlock().getState();
 				String[] line = sign.getLines();
 				if(line[0].equalsIgnoreCase("§2§2")){
+					if(!WorldSetManager.containsLocation(line[1].substring(2).replaceAll(" ", "_"))){
+						e.getPlayer().sendMessage("§6Local não encontrado.");
+						return;
+					}
 					e.getPlayer().teleport(WorldSetManager.getLocation(line[1].substring(2).replaceAll(" ", "_")));
 					e.getPlayer().sendMessage("§6Você foi teleportado para o §b" + line[1].substring(2));
 				}

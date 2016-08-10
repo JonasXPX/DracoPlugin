@@ -2,8 +2,6 @@ package me.jonasxpx.meuplugin2.karma;
 
 import org.bukkit.entity.Player;
 
-import me.jonasxpx.meuplugin2.managers.KarmaTagUpdate;
-
 public class Karma {
 
 	private Player player;
@@ -33,7 +31,7 @@ public class Karma {
 	public String getTag(){
 		for(KarmaLevels k : KarmaLevels.values()){
 			if(getKarma() <= k.max && getKarma() >= k.level){
-				return "§f[" + k.tag + "§f]";
+				return k.tag + "§r.";
 			}
 		}
 		return "";

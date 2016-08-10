@@ -4,3 +4,5 @@ Db:
    User: root
    Password: ''
    Port: 3306
+GroupTag:
+    vip: '&6'

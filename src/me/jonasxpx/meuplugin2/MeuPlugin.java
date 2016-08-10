@@ -2,12 +2,16 @@ package me.jonasxpx.meuplugin2;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 
+import me.jonasxpx.meuplugin2.comandos.Default;
 import me.jonasxpx.meuplugin2.comandos.MinerarCmd;
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
 import me.jonasxpx.meuplugin2.comandos.homes.Home;
@@ -19,10 +23,10 @@ import me.jonasxpx.meuplugin2.comandos.warps.SetWarp;
 import me.jonasxpx.meuplugin2.comandos.warps.WarpSet;
 import me.jonasxpx.meuplugin2.karma.Karma;
 import me.jonasxpx.meuplugin2.karma.KarmaDb;
+import me.jonasxpx.meuplugin2.karma.KarmaTagUpdate;
 import me.jonasxpx.meuplugin2.listeners.KarmaListener;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
-import me.jonasxpx.meuplugin2.managers.KarmaTagUpdate;
 
 public class MeuPlugin extends JavaPlugin{
 	
@@ -30,7 +34,8 @@ public class MeuPlugin extends JavaPlugin{
 	public static File data;
 	public static HomeManagerSQL homeSql;
 	private static KarmaDb karmaDb;
-	protected static ArrayList<Karma> players = Lists.newArrayList();
+	private static ArrayList<Karma> players = Lists.newArrayList();
+	private static LinkedHashMap<String, String> groupTags = null;
 	
 	@Override
 	public void onEnable() {
@@ -49,8 +54,16 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("sethome").setExecutor(new SetHome());
 		getCommand("listhomes").setExecutor(new ListHomes());
 		getCommand("minerar").setExecutor(new MinerarCmd());
+		getCommand("dracoplugin").setExecutor(new Default());
 		loadConfig();
-		new KarmaTagUpdate().runTaskTimer(this, 0, 20 * 30);
+		loadDataBase();
+		for(Player p : this.getServer().getOnlinePlayers())
+		{
+			Karma karma = new Karma(p);
+			getKarmaPlayers().add(karma);
+			KarmaTagUpdate.updateSingle(karma);
+		}
+		new KarmaTagUpdate().runTaskTimerAsynchronously(this, 0, 20 * 30);
 	}
 	
 	@Override
@@ -59,6 +72,18 @@ public class MeuPlugin extends JavaPlugin{
 	}
 	
 	protected void loadConfig(){
+		groupTags = new LinkedHashMap<String, String>();
+		getConfig().getConfigurationSection("GroupTag").getKeys(true).forEach(g ->{
+			groupTags.put(g, ChatColor.translateAlternateColorCodes('&', getConfig().getString("GroupTag." + g)));
+		});
+	}
+	public void reload(){
+		reloadConfig();
+		saveConfig();
+		loadConfig();
+	}
+	
+	private void loadDataBase(){
 		String ipDb = getConfig().getString("Db.Host");
 		String Db = getConfig().getString("Db.DataBase");
 		String user = getConfig().getString("Db.User");
@@ -70,5 +95,8 @@ public class MeuPlugin extends JavaPlugin{
 	
 	public static ArrayList<Karma> getKarmaPlayers(){
 		return players;
+	}
+	public static LinkedHashMap<String, String> getGroupTags(){
+		return groupTags;
 	}
 }

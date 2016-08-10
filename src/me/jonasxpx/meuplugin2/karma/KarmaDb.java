@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class KarmaDb {
 
-	private static Connection conn;
+	private static Connection conn = null;
 	private Statement stat;
 	private static final String INSERT_K = "INSERT INTO karma VALUES(?, ?)";
 	private static final String SELECT_P = "SELECT karma FROM karma WHERE username = ?";

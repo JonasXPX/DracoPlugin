@@ -83,7 +83,7 @@ public class MeuPlugin extends JavaPlugin{
 		loadConfig();
 	}
 	
-	private void loadDataBase(){
+	public void loadDataBase(){
 		String ipDb = getConfig().getString("Db.Host");
 		String Db = getConfig().getString("Db.DataBase");
 		String user = getConfig().getString("Db.User");

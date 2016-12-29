@@ -1,11 +1,11 @@
 package me.jonasxpx.meuplugin2.comandos.homes;
 
-import me.jonasxpx.meuplugin2.managers.Home;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import me.jonasxpx.meuplugin2.managers.Home;
 
 public class SetHome implements CommandExecutor{
 

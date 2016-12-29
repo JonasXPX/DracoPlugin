@@ -1,10 +1,11 @@
 package me.jonasxpx.test;
 
-import static org.junit.Assert.*;
-import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
 
 public class Testes {
 

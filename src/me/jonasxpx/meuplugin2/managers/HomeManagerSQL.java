@@ -10,6 +10,8 @@ import java.sql.Statement;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import me.jonasxpx.meuplugin2.MeuPlugin;
+
 
 public class HomeManagerSQL {
 	
@@ -126,7 +128,9 @@ public class HomeManagerSQL {
 		}catch(SQLException e){e.printStackTrace();}
 		return false;
 	}
-	
+	private void tryRecconect(){
+		MeuPlugin.instance.loadDataBase();
+	}
 	
 	
 }

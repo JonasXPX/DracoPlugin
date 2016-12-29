@@ -3,12 +3,13 @@ package me.jonasxpx.meuplugin2.managers;
 
 
 import static me.jonasxpx.meuplugin2.MeuPlugin.homeSql;
-import me.jonasxpx.meuplugin2.MeuPlugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.jonasxpx.meuplugin2.MeuPlugin;
 
 public class Home {
 	

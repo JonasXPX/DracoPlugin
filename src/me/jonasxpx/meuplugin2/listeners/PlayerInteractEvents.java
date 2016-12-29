@@ -1,13 +1,13 @@
 package me.jonasxpx.meuplugin2.listeners;
 
-import me.jonasxpx.meuplugin2.managers.WorldSetManager;
-
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import me.jonasxpx.meuplugin2.managers.WorldSetManager;
 
 public class PlayerInteractEvents implements Listener{
 

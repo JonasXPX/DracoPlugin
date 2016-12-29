@@ -1,9 +1,9 @@
 package me.jonasxpx.meuplugin2.managers;
 
-import me.jonasxpx.meuplugin2.MeuPlugin;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+
+import me.jonasxpx.meuplugin2.MeuPlugin;
 
 public class WorldSetManager {
 

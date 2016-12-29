@@ -10,9 +10,8 @@ public class Karma {
 		this.player = player;
 		if(!KarmaDb.exists(getPlayer().getName())){
 			KarmaDb.setKarma(getPlayer().getName(), KarmaLevels.L_3.level);
-			KarmaTagUpdate.updateSingle(this);
+			//KarmaTagUpdate.updateSingle(this);
 		}
-		System.out.println("Debug Karma: Karma = " + getKarma());
 	}
 	
 	public int getKarma(){
@@ -31,7 +30,7 @@ public class Karma {
 	public String getTag(){
 		for(KarmaLevels k : KarmaLevels.values()){
 			if(getKarma() <= k.max && getKarma() >= k.level){
-				return k.tag + "§r.";
+				return "[" + k.tag + "§r] ";
 			}
 		}
 		return "";
@@ -39,5 +38,5 @@ public class Karma {
 	
 	public Player getPlayer(){
 		return player;
-	}
+	}	
 }

@@ -2,11 +2,11 @@ package me.jonasxpx.meuplugin2.managers;
 
 import java.util.ArrayList;
 
-import me.jonasxpx.meuplugin2.MeuPlugin;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.jonasxpx.meuplugin2.MeuPlugin;
 
 public abstract class CallDelay extends BukkitRunnable{
 	

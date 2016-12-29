@@ -18,6 +18,7 @@ public class KarmaLevelUpdate extends Event implements Cancellable{
 	public KarmaLevelUpdate(Player player, Karma karma) {
 		this.player = player;
 		this.karma = karma;
+		
 	}
 	
 	public Player getPlayer(){

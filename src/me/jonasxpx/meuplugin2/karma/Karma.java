@@ -27,7 +27,7 @@ public class Karma {
 			KarmaDb.updateKarma(player.getName().toLowerCase(), k + karma);
 		}
 	}
-	
+
 	public String getTag(){
 		for(KarmaLevels k : KarmaLevels.values()){
 			if(getKarma() <= k.max && getKarma() >= k.level){

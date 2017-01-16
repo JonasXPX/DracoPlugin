@@ -6,10 +6,10 @@ import org.bukkit.potion.PotionEffectType;
 
 public class KarmaManager {
 
-	public static void addPlayerEffect(Player player, PotionEffectType type, int duração, int amplificação){
+	public static void addPlayerEffect(Player player, PotionEffectType type, int duração, int amplificacao){
 		if(player.hasPotionEffect(type)){
 			return;
 		}
-		player.addPotionEffect(new PotionEffect(type, duração, amplificação));
+		player.addPotionEffect(new PotionEffect(type, duração, amplificacao));
 	}
 }

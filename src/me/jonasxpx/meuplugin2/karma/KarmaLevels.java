@@ -1,23 +1,25 @@
 package me.jonasxpx.meuplugin2.karma;
 
+import org.bukkit.ChatColor;
+
 public enum KarmaLevels {
-	L_5("§2\u2020", 1000, 1001),
+	L_5(ChatColor.DARK_GREEN +"§2\u2020", 1000, 1001),
 	
 	/**
 	 * Most killed mob.
 	 */
-	L_4("§a\u2020", 750, L_5.level),
+	L_4(ChatColor.GREEN + "\u2020", 750, L_5.level),
 	
 	/**
 	 * Normal level.
 	 */
-	L_3("§f\u2020", 500, L_4.level),
+	L_3(ChatColor.WHITE + "\u2020", 500, L_4.level),
 	
 	/**
 	 * Most killed players.
 	 */
-	L_2("§c\u2020", 250, L_3.level),
-	L_1("§4\u2020", 0, L_2.level);
+	L_2(ChatColor.RED + "§c\u2020", 250, L_3.level),
+	L_1(ChatColor.DARK_RED + "\u2020", 0, L_2.level);
 	
 	public String tag;
 	public int level;

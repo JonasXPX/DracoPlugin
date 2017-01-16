@@ -33,7 +33,10 @@ public class KarmaListener implements Listener{
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e){
 		Karma k = KarmaUtils.getKarmaByPlayer(e.getPlayer());
-		if(k != null)getKarmaPlayers().remove(KarmaUtils.getKarmaByPlayer(e.getPlayer()));
+		if(k != null){
+			k.getCache().saveCache();
+			getKarmaPlayers().remove(KarmaUtils.getKarmaByPlayer(e.getPlayer()));
+		}
 	}
 	
 	@EventHandler

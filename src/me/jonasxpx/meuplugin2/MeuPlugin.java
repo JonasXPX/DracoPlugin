@@ -33,7 +33,7 @@ public class MeuPlugin extends JavaPlugin{
 	public static MeuPlugin instance;
 	public static File data;
 	public static HomeManagerSQL homeSql;
-	private static KarmaDb karmaDb;
+	private KarmaDb karmaDb;
 	private static ArrayList<Karma> players = Lists.newArrayList();
 	private static LinkedHashMap<String, String> groupTags = null;
 	

@@ -16,7 +16,6 @@ public class TagManager {
 				if(!player.isOp())
 					build.append(MeuPlugin.getGroupTags().get(group));
 		}
-		System.out.println("[Debug-DP] Tag update " + build.toString() + " " + player.getName());
 		return build.toString();
 	}
 }

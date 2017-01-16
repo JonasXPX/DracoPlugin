@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 public class Karma {
 
 	private Player player;
+	private KarmaCache karmaCache;
 	
 	public Karma(Player player){
 		this.player = player;
@@ -12,19 +13,18 @@ public class Karma {
 			KarmaDb.setKarma(getPlayer().getName(), KarmaLevels.L_3.level);
 			//KarmaTagUpdate.updateSingle(this);
 		}
+		karmaCache = new KarmaCache(player);
 	}
 	
 	public int getKarma(){
-		return KarmaDb.getKarma(player.getName().toLowerCase());
+		return karmaCache.getKarma();
+	}
+	public KarmaCache getCache(){
+		return karmaCache;
 	}
 
 	public void addKarma(int karma){
-		int k = getKarma();
-		if(karma < 0){
-			KarmaDb.updateKarma(player.getName().toLowerCase(), k - Math.abs(karma));
-		} else if (karma > 0){
-			KarmaDb.updateKarma(player.getName().toLowerCase(), k + karma);
-		}
+		karmaCache.addKarma(karma);
 	}
 
 	public String getTag(){

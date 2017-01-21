@@ -10,4 +10,5 @@ Plugin para o Novo servidor survival do EndCraft
  - Sistema de TAGs.
  - Sistema de TAGs [com tab color].
 
-###Compilando para .jar Apenas com apache `mvn`
+##Compilado com
+ - Apache email 1.4

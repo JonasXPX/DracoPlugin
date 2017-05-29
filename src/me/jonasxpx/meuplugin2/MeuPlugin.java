@@ -2,16 +2,11 @@ package me.jonasxpx.meuplugin2;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -46,7 +41,6 @@ public class MeuPlugin extends JavaPlugin{
 	private KarmaDb karmaDb;
 	private static ArrayList<Karma> players = Lists.newArrayList();
 	private static LinkedHashMap<String, String> groupTags = null;
-	private static HashMap<String, ItemStack> itemChest = null;
 	public static boolean isEnabledLegendChat = false;
 	public WorldGuardPlugin worldGuard = null;
 	public static Economy economy;
@@ -77,7 +71,6 @@ public class MeuPlugin extends JavaPlugin{
 		}
 		loadConfig();
 		loadDataBase();
-		configureItensChest();
 		for(Player p : this.getServer().getOnlinePlayers())
 		{
 			Karma karma = new Karma(p);
@@ -124,36 +117,12 @@ public class MeuPlugin extends JavaPlugin{
 		karmaDb = new KarmaDb(ipDb, Db, user, pass, port);
 	}
 	
-	private void configureItensChest(){
-		itemChest = new HashMap<>();
-		ItemStack buy = new ItemStack(Material.DIAMOND);
-		ItemStack rent = new ItemStack(Material.SIGN);
-		
-		ItemMeta meta_buy = buy.getItemMeta();
-		meta_buy.setDisplayName("§bComprar Terreno");
-		meta_buy.setLore(Arrays.asList("§bValor:§f " + getConfig().getDouble("Terrenos.Valores.Compra")));
-		buy.setItemMeta(meta_buy);
-		
-		ItemMeta meta_rent = rent.getItemMeta();
-		meta_rent.setDisplayName("§bAlugar Terreno");
-		meta_rent.setLore(Arrays.asList("§bValor:§f " + getConfig().getDouble("Terrenos.Valores.Aluguel") + " p/Dia"));
-		rent.setItemMeta(meta_rent);
-		
-		itemChest.put("buy", buy);
-		itemChest.put("rent", rent);
-	}
-	
-	
 	public static ArrayList<Karma> getKarmaPlayers(){
 		return players;
 	}
 	public static LinkedHashMap<String, String> getGroupTags(){
 		return groupTags;
 	}
-	public static HashMap getItensChest(){
-		return itemChest;
-	}
-	
 	private boolean setupEconomy()
     {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);

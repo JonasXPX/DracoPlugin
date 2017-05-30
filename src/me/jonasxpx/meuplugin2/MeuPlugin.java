@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import com.google.common.collect.Lists;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -37,7 +36,6 @@ import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.listeners.TerrenoListeners;
 import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
 import me.jonasxpx.meuplugin2.managers.StatusDataBase;
-import me.jonasxpx.meuplugin2.managers.TimerEstatisticas;
 import net.milkbowl.vault.economy.Economy;
 
 public class MeuPlugin extends JavaPlugin{
@@ -53,7 +51,6 @@ public class MeuPlugin extends JavaPlugin{
 	public static boolean isEnabledLegendChat = false;
 	public WorldGuardPlugin worldGuard = null;
 	public static Economy economy;
-	private BukkitTask timeTask;
 	
 	@Override
 	public void onEnable() {
@@ -93,7 +90,6 @@ public class MeuPlugin extends JavaPlugin{
 		if(getServer().getPluginManager().getPlugin("WorldGuard") != null){
 			worldGuard = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
 		}
-		timeTask = new TimerEstatisticas().runTaskTimer(this, 300, 240 * 20);
 		setupEconomy();
 	}
 	
@@ -102,7 +98,6 @@ public class MeuPlugin extends JavaPlugin{
 		Arrays.asList(getServer().getOnlinePlayers()).forEach(p -> {
 			PlayerManager.unload(p);
 		});
-		timeTask.cancel();
 		HandlerList.unregisterAll(this);
 	}
 	
@@ -118,6 +113,7 @@ public class MeuPlugin extends JavaPlugin{
 			saveConfig();
 		}
 	}
+	
 	public void reload(){
 		reloadConfig();
 		saveConfig();
@@ -153,6 +149,7 @@ public class MeuPlugin extends JavaPlugin{
 	public static LinkedHashMap<String, String> getGroupTags(){
 		return groupTags;
 	}
+	
 	private boolean setupEconomy()
     {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);

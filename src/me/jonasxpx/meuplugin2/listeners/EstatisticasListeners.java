@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -14,9 +15,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.estastisticas.ListemPlayer;
-import me.jonasxpx.meuplugin2.estastisticas.ListemPlayer.Type;
 import me.jonasxpx.meuplugin2.estastisticas.PlayerManager;
 import me.jonasxpx.meuplugin2.estastisticas.Status;
+import me.jonasxpx.meuplugin2.estastisticas.Type;
+import me.jonasxpx.meuplugin2.estastisticas.VirtualChestEstatisticas;
 
 public class EstatisticasListeners implements Listener{
 	
@@ -66,11 +68,17 @@ public class EstatisticasListeners implements Listener{
 					ItemMeta m = e.getPlayer().getItemInHand().getItemMeta();
 					if(m.hasDisplayName() && m.getDisplayName().equalsIgnoreCase("Estatisticas")){
 						e.setCancelled(true);
-						ListemPlayer l = MeuPlugin.getListemByPlayer(e.getPlayer().getName());
-						e.getPlayer().sendMessage(l.toString());
+						e.getPlayer().openInventory(VirtualChestEstatisticas.openInventory(e.getPlayer()));
 					}
 				}
 			}
+		}
+	}
+	
+	@EventHandler
+	public void inventoryClickEvent(InventoryClickEvent e){
+		if(e.getInventory().getName().equalsIgnoreCase("§bEstatisticas")){
+			e.setCancelled(true);
 		}
 	}
 	

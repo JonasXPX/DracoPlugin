@@ -1,27 +1,28 @@
-package me.jonasxpx.meuplugin2.managers;
+package me.jonasxpx.meuplugin2.estastisticas;
 
 import java.util.Arrays;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.jonasxpx.meuplugin2.MeuPlugin;
-import me.jonasxpx.meuplugin2.estastisticas.ListemPlayer;
-import me.jonasxpx.meuplugin2.estastisticas.Status;
-import me.jonasxpx.meuplugin2.estastisticas.Type;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Dead;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Kills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.MobKills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Walk;
 
-public class TimerEstatisticas extends BukkitRunnable{
-	private Random rd = new Random();
-	@Override
-	public void run() {
-		Arrays.asList(Bukkit.getOnlinePlayers()).forEach(p -> {
-			ListemPlayer s = MeuPlugin.getListemByPlayer(p.getName());
-			Status status = s.getTipo(Type.values()[rd.nextInt(Type.values().length)]);
+public class VirtualChestEstatisticas {
+	
+	
+	
+	public static Inventory openInventory(Player p){
+		ListemPlayer s = MeuPlugin.getListemByPlayer(p.getName());
+		Inventory inv = Bukkit.createInventory(null, 9, "§bEstatisticas");
+		for(Type type : Type.values()){
+			Status status = s.getTipo(type);
 			StringBuilder sb = new StringBuilder();
 			sb.append("§7§m>------------------------------------<\n");
 			if(status instanceof Kills){
@@ -42,11 +43,14 @@ public class TimerEstatisticas extends BukkitRunnable{
 				sb.append(" Mob(s)");
 			}
 			sb.append("\n§7§m>------------------------------------<");
-			p.sendMessage(sb.toString());
-		});
+			ItemStack item = new ItemStack(type.material, 1);
+			ItemMeta meta = item.getItemMeta();
+			meta.setLore(Arrays.asList(sb.toString().split("\n")));
+			meta.setDisplayName("§6" + type.nome);
+			item.setItemMeta(meta);
+			inv.addItem(item);
+		}
+		return inv;
 	}
 
-	
-	
-	
 }

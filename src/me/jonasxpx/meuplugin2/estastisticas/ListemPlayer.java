@@ -29,10 +29,10 @@ public class ListemPlayer {
 		}
 		configurePlayer();
 		System.out.println(json.toString());
-		estatisticas.add(new Dead(new Value(json.getJSONArray(Type.DEAD.value).getDouble(0))));
-		estatisticas.add(new Kills(new Value(json.getJSONArray(Type.KILLS.value).getDouble(0))));
-		estatisticas.add(new MobKills(new Value(json.getJSONArray(Type.MOBKILLS.value).getDouble(0))));
-		estatisticas.add(new Walk(new Value(json.getJSONArray(Type.WALK.value).getDouble(0))));
+		estatisticas.add(new Dead(new Value(json.has(Type.DEAD.value) ? json.getJSONArray(Type.DEAD.value).getDouble(0) : 0)));
+		estatisticas.add(new Kills(new Value(json.has(Type.KILLS.value) ? json.getJSONArray(Type.KILLS.value).getDouble(0) : 0)));
+		estatisticas.add(new MobKills(new Value(json.has(Type.MOBKILLS.value) ? json.getJSONArray(Type.MOBKILLS.value).getDouble(0) : 0)));
+		estatisticas.add(new Walk(new Value(json.has(Type.WALK.value) ? json.getJSONArray(Type.WALK.value).getDouble(0) : 0)));
 		
 	}
 	
@@ -62,8 +62,7 @@ public class ListemPlayer {
 		for(Status s : estatisticas){
 			json.append(s.getName(), s.getValue().getValue());
 		}
-		int ret = MeuPlugin.statusDb.savePlayer(player.getName(), json.toString());
-		System.out.println("Save data returned " + ret);
+		MeuPlugin.statusDb.savePlayer(player.getName(), json.toString());
 	}
 	
 	@Override
@@ -76,20 +75,6 @@ public class ListemPlayer {
 			out.append("\n");
 		}
 		return out.toString();
-	}
-	
-	
-	public enum Type {
-		DEAD("dead"),
-		KILLS("kills"),
-		MOBKILLS("mobkills"),
-		WALK("walk");
-		
-		String value;
-		
-		private Type(String s) {
-			this.value = s;
-		}
 	}
 	
 	

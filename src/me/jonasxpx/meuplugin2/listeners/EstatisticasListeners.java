@@ -1,9 +1,13 @@
 package me.jonasxpx.meuplugin2.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -19,6 +23,7 @@ import me.jonasxpx.meuplugin2.estastisticas.PlayerManager;
 import me.jonasxpx.meuplugin2.estastisticas.Status;
 import me.jonasxpx.meuplugin2.estastisticas.Type;
 import me.jonasxpx.meuplugin2.estastisticas.VirtualChestEstatisticas;
+import me.jonasxpx.meuplugin2.managers.Utils;
 
 public class EstatisticasListeners implements Listener{
 	
@@ -82,4 +87,23 @@ public class EstatisticasListeners implements Listener{
 		}
 	}
 	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void blockBreakEvent(BlockBreakEvent e){
+		if(e.isCancelled()){
+			return;
+		}
+		if(Utils.isBlockedSpan(e.getBlock().getLocation(), true)){
+			return;
+		}
+		if(Utils.isToFarm(e.getBlock())){
+			ListemPlayer lp = MeuPlugin.getListemByPlayer(e.getPlayer().getName());
+			lp.getTipo(Type.FARM).getValue().increase();
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void blockPlaceEvent(BlockPlaceEvent e){
+		if(!e.isCancelled())
+			Utils.isBlockedSpan(e.getBlock().getLocation(), false);
+	}
 }

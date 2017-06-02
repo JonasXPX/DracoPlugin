@@ -1,6 +1,6 @@
 name: DracoPlugin
 main: me.jonasxpx.meuplugin2.MeuPlugin
-version: 1.2
+version: 1.3
 commands:
     worldset:
     warp:
@@ -15,4 +15,5 @@ commands:
     minerar:
        aliases: [mina]
     sethome:
+    mobcontrol:
     dracoplugin:

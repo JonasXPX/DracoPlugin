@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Dead;
+import me.jonasxpx.meuplugin2.estastisticas.tipos.Farm;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Kills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.MobKills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Walk;
@@ -41,6 +42,10 @@ public class VirtualChestEstatisticas {
 				sb.append("§bVocê já matou §6");
 				sb.append(((MobKills) status).getKills());
 				sb.append(" Mob(s)");
+			} else if (status instanceof Farm){
+				sb.append("§bVocê já colheu §6");
+				sb.append(((Farm) status).getFarmed());
+				sb.append(" Vez(es)");
 			}
 			sb.append("\n§7§m>------------------------------------<");
 			ItemStack item = new ItemStack(type.material, 1);

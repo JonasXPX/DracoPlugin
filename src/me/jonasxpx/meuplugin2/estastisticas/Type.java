@@ -6,7 +6,8 @@ public enum Type {
 	DEAD("dead", Material.YELLOW_FLOWER, "Morreu"),
 	KILLS("kills", Material.SKULL, "Kill(s)"),
 	MOBKILLS("mobkills", Material.MOB_SPAWNER, "Matou quantos Mobs"),
-	WALK("walk", Material.LEATHER_BOOTS, "Andou");
+	WALK("walk", Material.LEATHER_BOOTS, "Andou"),
+	FARM("farm", Material.WOOD_HOE, "Colheu");
 	
 	public String value;
 	public String nome;

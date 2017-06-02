@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Dead;
+import me.jonasxpx.meuplugin2.estastisticas.tipos.Farm;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Kills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.MobKills;
 import me.jonasxpx.meuplugin2.estastisticas.tipos.Walk;
@@ -33,6 +34,7 @@ public class ListemPlayer {
 		estatisticas.add(new Kills(new Value(json.has(Type.KILLS.value) ? json.getJSONArray(Type.KILLS.value).getDouble(0) : 0)));
 		estatisticas.add(new MobKills(new Value(json.has(Type.MOBKILLS.value) ? json.getJSONArray(Type.MOBKILLS.value).getDouble(0) : 0)));
 		estatisticas.add(new Walk(new Value(json.has(Type.WALK.value) ? json.getJSONArray(Type.WALK.value).getDouble(0) : 0)));
+		estatisticas.add(new Farm(new Value(json.has(Type.FARM.value) ? json.getJSONArray(Type.FARM.value).getDouble(0) : 0)));
 		
 	}
 	

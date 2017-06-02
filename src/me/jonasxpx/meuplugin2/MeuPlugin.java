@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -16,6 +18,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import me.jonasxpx.meuplugin2.comandos.Default;
 import me.jonasxpx.meuplugin2.comandos.MinerarCmd;
+import me.jonasxpx.meuplugin2.comandos.MobControlCommand;
 import me.jonasxpx.meuplugin2.comandos.WorldSet;
 import me.jonasxpx.meuplugin2.comandos.homes.Home;
 import me.jonasxpx.meuplugin2.comandos.homes.ListHomes;
@@ -36,6 +39,8 @@ import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.listeners.TerrenoListeners;
 import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
 import me.jonasxpx.meuplugin2.managers.StatusDataBase;
+import me.jonasxpx.meuplugin2.mobcontrol.MobControl;
+import me.jonasxpx.meuplugin2.mobcontrol.MobLocation;
 import net.milkbowl.vault.economy.Economy;
 
 public class MeuPlugin extends JavaPlugin{
@@ -51,6 +56,8 @@ public class MeuPlugin extends JavaPlugin{
 	public static boolean isEnabledLegendChat = false;
 	public WorldGuardPlugin worldGuard = null;
 	public static Economy economy;
+	public int mobControlLimit = 0;
+	public int mobControlDelay = 0;
 	
 	@Override
 	public void onEnable() {
@@ -72,12 +79,14 @@ public class MeuPlugin extends JavaPlugin{
 		getCommand("listhomes").setExecutor(new ListHomes());
 		getCommand("minerar").setExecutor(new MinerarCmd());
 		getCommand("dracoplugin").setExecutor(new Default());
+		getCommand("mobcontrol").setExecutor(new MobControlCommand());
 		if(getServer().getPluginManager().getPlugin("Legendchat") != null)
 		{
 			isEnabledLegendChat = true;
 			getServer().getPluginManager().registerEvents(new KarmaChatEvent(), this);
 		}
 		loadConfig();
+		MobControl.initialize();
 		loadDataBase();
 		for(Player p : this.getServer().getOnlinePlayers())
 		{
@@ -112,6 +121,23 @@ public class MeuPlugin extends JavaPlugin{
 			getConfig().addDefault("Terrenos.Valores.Aluguel", 200000.0);
 			saveConfig();
 		}
+		if(!getConfig().contains("mobcontrol")){
+			getConfig().addDefault("mobcontrol.delay", 120);
+			getConfig().addDefault("mobcontrol.limit", 5);
+			saveConfig();
+		}
+		this.mobControlDelay = getConfig().getInt("mobcontrol.delay");
+		this.mobControlLimit = getConfig().getInt("mobcontrol.limit");
+		for(String s : getConfig().getStringList("mobcontrol.spawners")){
+			String[] split = s.split(";");
+			EntityType type = EntityType.fromName(split[0]);
+			MobControl.register(new MobLocation(new Location(getServer().getWorld(split[1]),
+					Double.parseDouble(split[2]),
+					Double.parseDouble(split[3]),
+					Double.parseDouble(split[4])),
+					type));
+		}
+		
 	}
 	
 	public void reload(){

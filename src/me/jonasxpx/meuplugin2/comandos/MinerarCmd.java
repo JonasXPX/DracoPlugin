@@ -16,7 +16,7 @@ public class MinerarCmd implements CommandExecutor{
 			sender.sendMessage("§6Você já esta aguardando.");
 			return true;
 		}
-		new CallDelay(((Player)sender), 3) {
+		new CallDelay(((Player)sender), sender.hasPermission("draco.delay") ? 0 : 3) {
 			@Override
 			public void run() {
 				((Player)sender).teleport(Warp.getWarp("minerar"));

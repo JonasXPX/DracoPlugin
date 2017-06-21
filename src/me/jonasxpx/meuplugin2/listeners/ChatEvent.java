@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import br.com.devpaulo.legendchat.api.events.ChatMessageEvent;
 import me.jonasxpx.meuplugin2.karma.KarmaUtils;
 
-public class KarmaChatEvent implements Listener{
+public class ChatEvent implements Listener{
 
 	
 	@EventHandler

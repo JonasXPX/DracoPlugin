@@ -29,6 +29,5 @@ public enum KarmaLevels {
 		this.tag = tag;
 		this.level = level;
 		this.max = max;
-
 	}
 }

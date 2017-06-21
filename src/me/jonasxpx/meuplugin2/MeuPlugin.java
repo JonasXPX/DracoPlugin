@@ -33,10 +33,11 @@ import me.jonasxpx.meuplugin2.karma.Karma;
 import me.jonasxpx.meuplugin2.karma.KarmaDb;
 import me.jonasxpx.meuplugin2.karma.KarmaTagUpdate;
 import me.jonasxpx.meuplugin2.listeners.EstatisticasListeners;
-import me.jonasxpx.meuplugin2.listeners.KarmaChatEvent;
+import me.jonasxpx.meuplugin2.listeners.ChatEvent;
 import me.jonasxpx.meuplugin2.listeners.KarmaListener;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.listeners.TerrenoListeners;
+import me.jonasxpx.meuplugin2.listeners.ToolsWere;
 import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
 import me.jonasxpx.meuplugin2.managers.StatusDataBase;
 import me.jonasxpx.meuplugin2.mobcontrol.MobControl;
@@ -69,6 +70,7 @@ public class MeuPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new KarmaListener(), this);
 		getServer().getPluginManager().registerEvents(new TerrenoListeners(), this);
 		getServer().getPluginManager().registerEvents(new EstatisticasListeners(), this);
+		getServer().getPluginManager().registerEvents(new ToolsWere(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());
 		getCommand("delwarp").setExecutor(new DelWarp());
@@ -83,7 +85,7 @@ public class MeuPlugin extends JavaPlugin{
 		if(getServer().getPluginManager().getPlugin("Legendchat") != null)
 		{
 			isEnabledLegendChat = true;
-			getServer().getPluginManager().registerEvents(new KarmaChatEvent(), this);
+			getServer().getPluginManager().registerEvents(new ChatEvent(), this);
 		}
 		loadConfig();
 		MobControl.initialize();

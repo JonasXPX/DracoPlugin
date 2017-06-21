@@ -1,7 +1,9 @@
 package me.jonasxpx.meuplugin2.listeners;
 
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,6 +19,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import br.com.devpaulo.legendchat.api.events.ChatMessageEvent;
 import me.jonasxpx.meuplugin2.MeuPlugin;
 import me.jonasxpx.meuplugin2.estastisticas.ListemPlayer;
 import me.jonasxpx.meuplugin2.estastisticas.PlayerManager;
@@ -51,9 +54,13 @@ public class EstatisticasListeners implements Listener{
 	
 	@EventHandler
 	public void onMobKills(EntityDeathEvent e){
-		if(e.getEntity().getKiller() != null){
-			ListemPlayer status = MeuPlugin.getListemByPlayer(e.getEntity().getKiller().getName());
-			status.getTipo(Type.MOBKILLS).getValue().increase();
+		if(e.getEntity().getKiller() == null){
+			return;
+		}
+		ListemPlayer status = MeuPlugin.getListemByPlayer(e.getEntity().getKiller().getName());
+		status.getTipo(Type.MOBKILLS).getValue().increase();
+		if(e.getEntity() instanceof EnderDragon){
+			status.getTipo(Type.DRACO).getValue().increase();
 		}
 	}
 	
@@ -105,5 +112,10 @@ public class EstatisticasListeners implements Listener{
 	public void blockPlaceEvent(BlockPlaceEvent e){
 		if(!e.isCancelled())
 			Utils.isBlockedSpan(e.getBlock().getLocation(), false);
+	}
+	
+	@EventHandler
+	public void chatManager(ChatMessageEvent e){
+
 	}
 }

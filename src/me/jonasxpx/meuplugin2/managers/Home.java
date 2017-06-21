@@ -32,9 +32,7 @@ public class Home {
 	}
 	
 	public void teleport(final String name){
-		
 		new BukkitRunnable() {
-			
 			@Override
 			public void run() {
 				String loc;

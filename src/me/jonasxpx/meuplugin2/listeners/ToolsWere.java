@@ -1,5 +1,6 @@
 package me.jonasxpx.meuplugin2.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -14,7 +15,7 @@ public class ToolsWere implements Listener {
 			return;
 		}
 		
-		if(!e.getPlayer().hasPermission(ANVIL)){
+		if(!e.getPlayer().hasPermission(ANVIL) && e.getPlayer().getItemInHand().getType() == Material.ANVIL){
 			e.setCancelled(true);
 			e.getPlayer().sendMessage("§cOps... Você não pode usar.");
 		}

@@ -79,7 +79,7 @@ public class StatusDataBase {
 			if(rs.next())
 				return rs.getString(1);
 			else{
-				try(PreparedStatement pre1 = conn.prepareStatement("INSERT INTO estatisticas VALUES(?, ?)")){
+				try(PreparedStatement pre1 = conn.prepareStatement("INSERT INTO estatisticas(username, jsondata) VALUES(?, ?)")){
 					pre1.setString(1, player);
 					pre1.setString(2, "{}");
 					pre1.executeUpdate();

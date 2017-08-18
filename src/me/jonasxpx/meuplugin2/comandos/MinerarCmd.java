@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.jonasxpx.meuplugin2.managers.CallDelay;
+import me.jonasxpx.meuplugin2.managers.Utils;
 import me.jonasxpx.meuplugin2.managers.Warp;
 
 public class MinerarCmd implements CommandExecutor{
@@ -19,6 +20,10 @@ public class MinerarCmd implements CommandExecutor{
 		new CallDelay(((Player)sender), sender.hasPermission("draco.delay") ? 0 : 3) {
 			@Override
 			public void run() {
+				if(Utils.isInCombat((Player)sender)){
+					sender.sendMessage("§cNão foi possível teleportar, você está em combate.");
+					return;
+				}
 				((Player)sender).teleport(Warp.getWarp("minerar"));
 				CallDelay.unregister(sender.getName());
 			}

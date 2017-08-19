@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.jonasxpx.meuplugin2.managers.CallDelay;
+import me.jonasxpx.meuplugin2.managers.Utils;
 
 public class WarpSet implements CommandExecutor{
 
@@ -33,6 +34,10 @@ public class WarpSet implements CommandExecutor{
 			new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 				@Override
 				public void run() {
+					if(Utils.isInCombat((Player)sender)){
+						sender.sendMessage("§cNão foi possível teleportar, você está em combate.");
+						return;
+					}
 					((Player)sender).teleport(warp);
 					sender.sendMessage("§b» Teleportado para §e" + args[0].toLowerCase());
 					CallDelay.unregister(sender.getName());

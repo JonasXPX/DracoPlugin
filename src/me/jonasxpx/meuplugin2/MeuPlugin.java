@@ -3,7 +3,9 @@ package me.jonasxpx.meuplugin2;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,6 +17,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.collect.Lists;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.trc202.CombatTag.CombatTag;
+import com.trc202.CombatTagApi.CombatTagApi;
 
 import me.jonasxpx.meuplugin2.comandos.Default;
 import me.jonasxpx.meuplugin2.comandos.MinerarCmd;
@@ -32,9 +36,11 @@ import me.jonasxpx.meuplugin2.estastisticas.PlayerManager;
 import me.jonasxpx.meuplugin2.karma.Karma;
 import me.jonasxpx.meuplugin2.karma.KarmaDb;
 import me.jonasxpx.meuplugin2.karma.KarmaTagUpdate;
-import me.jonasxpx.meuplugin2.listeners.EstatisticasListeners;
 import me.jonasxpx.meuplugin2.listeners.ChatEvent;
+import me.jonasxpx.meuplugin2.listeners.EstatisticasListeners;
+import me.jonasxpx.meuplugin2.listeners.GlitchFix;
 import me.jonasxpx.meuplugin2.listeners.KarmaListener;
+import me.jonasxpx.meuplugin2.listeners.MessagesListeners;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.listeners.TerrenoListeners;
 import me.jonasxpx.meuplugin2.listeners.ToolsWere;
@@ -54,9 +60,12 @@ public class MeuPlugin extends JavaPlugin{
 	private static ArrayList<Karma> players = Lists.newArrayList();
 	private static ArrayList<ListemPlayer> statusPlayers = Lists.newArrayList();
 	private static LinkedHashMap<String, String> groupTags = null;
+	public Map<String, Double> chatMinMoney = null;
+	public Map<Messages, String> messages = null;
 	public static boolean isEnabledLegendChat = false;
 	public WorldGuardPlugin worldGuard = null;
 	public static Economy economy;
+	public static CombatTagApi cta = null;
 	public int mobControlLimit = 0;
 	public int mobControlDelay = 0;
 	
@@ -71,6 +80,8 @@ public class MeuPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new TerrenoListeners(), this);
 		getServer().getPluginManager().registerEvents(new EstatisticasListeners(), this);
 		getServer().getPluginManager().registerEvents(new ToolsWere(), this);
+		getServer().getPluginManager().registerEvents(new MessagesListeners(), this);
+		getServer().getPluginManager().registerEvents(new GlitchFix(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());
 		getCommand("delwarp").setExecutor(new DelWarp());
@@ -86,6 +97,9 @@ public class MeuPlugin extends JavaPlugin{
 		{
 			isEnabledLegendChat = true;
 			getServer().getPluginManager().registerEvents(new ChatEvent(), this);
+		}
+		if(getServer().getPluginManager().getPlugin("CombatTag") != null){
+			cta = new CombatTagApi((CombatTag) getServer().getPluginManager().getPlugin("CombatTag"));
 		}
 		loadConfig();
 		MobControl.initialize();
@@ -128,8 +142,27 @@ public class MeuPlugin extends JavaPlugin{
 			getConfig().addDefault("mobcontrol.limit", 5);
 			saveConfig();
 		}
+		if(!getConfig().contains("chat")){
+			getConfig().addDefault("chat.global.minmoney", 50000.0);
+			saveConfig();
+		}
+		if(!getConfig().contains("messages")){
+			getConfig().addDefault("messages.login", "");
+			getConfig().addDefault("messages.logout", "");
+			getConfig().addDefault("messages.deadbyplayer", "");
+			saveConfig();
+		}
+		
 		this.mobControlDelay = getConfig().getInt("mobcontrol.delay");
 		this.mobControlLimit = getConfig().getInt("mobcontrol.limit");
+		chatMinMoney = new HashMap<>();
+		for(String key : getConfig().getConfigurationSection("chat").getKeys(true)){
+			chatMinMoney.put(key, getConfig().getDouble("chat." + key + ".minmoney"));
+		}
+		messages = new HashMap<>();
+		messages.put(Messages.LOGIN, getConfig().getString("messages." + Messages.LOGIN.configName));
+		messages.put(Messages.LOGOUT, getConfig().getString("messages." + Messages.LOGOUT.configName));
+		messages.put(Messages.DEADBYPLAYER, getConfig().getString("messages." + Messages.DEADBYPLAYER.configName));
 		for(String s : getConfig().getStringList("mobcontrol.spawners")){
 			String[] split = s.split(";");
 			EntityType type = EntityType.fromName(split[0]);
@@ -176,6 +209,10 @@ public class MeuPlugin extends JavaPlugin{
 	}
 	public static LinkedHashMap<String, String> getGroupTags(){
 		return groupTags;
+	}
+	
+	public static CombatTagApi getCombatTag(){
+		return cta;
 	}
 	
 	private boolean setupEconomy()

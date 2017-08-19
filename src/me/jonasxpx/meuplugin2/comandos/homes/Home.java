@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.jonasxpx.meuplugin2.managers.CallDelay;
+import me.jonasxpx.meuplugin2.managers.Utils;
 
 public class Home implements CommandExecutor{
 
@@ -24,6 +25,10 @@ public class Home implements CommandExecutor{
 			new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 				@Override
 				public void run() {
+					if(Utils.isInCombat((Player)sender)){
+						sender.sendMessage("§cNão foi possível teleportar, você está em combate.");
+						return;
+					}
 					home.teleport("default");
 					CallDelay.unregister(sender.getName());
 				}
@@ -37,6 +42,10 @@ public class Home implements CommandExecutor{
 		new CallDelay(sender, sender.hasPermission("draco.delay") ? 0 : 3) {
 			@Override
 			public void run() {
+				if(Utils.isInCombat((Player)sender)){
+					sender.sendMessage("§cNão foi possível teleportar, você está em combate.");
+					return;
+				}
 				home.teleport(args[0]);
 				CallDelay.unregister(sender.getName());
 			}

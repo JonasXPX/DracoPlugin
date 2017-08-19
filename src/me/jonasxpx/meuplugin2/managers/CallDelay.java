@@ -35,6 +35,7 @@ public abstract class CallDelay extends BukkitRunnable {
 		register(sender.getName());
 	}
 
+	
 	public CallDelay() {
 
 	}

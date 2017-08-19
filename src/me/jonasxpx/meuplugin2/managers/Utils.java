@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import me.jonasxpx.meuplugin2.MeuPlugin;
+
 public class Utils {
 
 	public static HashMap<Location, Long> antiSpan = new HashMap<>();
@@ -21,6 +23,10 @@ public class Utils {
 		return true;
 	}
 
+	public static boolean isInCombat(Player player){
+		return MeuPlugin.getCombatTag().isInCombat(player);
+	}
+	
 	public static boolean isBlockedSpan(Location block, boolean isBreak){
 		if(!antiSpan.containsKey(block) && !isBreak){
 			antiSpan.put(block, (System.currentTimeMillis() / 1000) + 30);

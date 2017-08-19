@@ -29,7 +29,7 @@ public class TerrenoListeners implements Listener {
 			return;
 		}
 
-		if(e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST){
+		if(e.getClickedBlock().getState() instanceof Sign){
 			Sign sign = (Sign)e.getClickedBlock().getState();
 			if(!sign.getLine(3).equalsIgnoreCase("§cClique aqui.")){
 				return;

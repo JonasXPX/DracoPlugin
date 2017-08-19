@@ -28,5 +28,7 @@
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/Vault-1.4.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Downloads/NametagEdit.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/NametagEdit.jar"/>
+	<classpathentry kind="lib" path="commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/CombatTagReload.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

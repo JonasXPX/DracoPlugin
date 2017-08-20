@@ -53,6 +53,8 @@ import net.milkbowl.vault.economy.Economy;
 
 public class MeuPlugin extends JavaPlugin{
 	
+	public final static String ESS_FOLDER = "plugins/Essentials/userdata/";
+	
 	public static MeuPlugin instance;
 	public static File data;
 	public static HomeManagerSQL homeSql;

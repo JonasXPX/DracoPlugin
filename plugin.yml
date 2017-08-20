@@ -1,6 +1,6 @@
 name: DracoPlugin
 main: me.jonasxpx.meuplugin2.MeuPlugin
-version: 1.4
+version: 1.4.1
 commands:
     worldset:
     warp:

@@ -3,6 +3,7 @@ package me.jonasxpx.meuplugin2.comandos.warps;
 import static me.jonasxpx.meuplugin2.managers.Utils.checkPerm;
 import static me.jonasxpx.meuplugin2.managers.Warp.getWarp;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +18,25 @@ public class WarpSet implements CommandExecutor{
 	
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String arg2, final String[] args) {
+		if(!(sender instanceof Player)){
+			if(args.length == 2){
+				Player player = Bukkit.getPlayer(args[1]);
+				String warp = args[0];
+				if(player == null){
+					sender.sendMessage("§cJogador não encontrado.");
+					return true;
+				}
+				Location lWarp = getWarp(warp);
+				if(lWarp == null){
+					sender.sendMessage("§cWarp não encontrada");
+					return true;
+				}
+				player.teleport(lWarp);
+				return true;
+			}
+			sender.sendMessage("§fUso correto: /warp <warpName> <playerName>");
+			return true;
+		}
 		if(args.length == 1){
 			if(!checkPerm((Player)sender, "draco.warps." + args[0])){
 				sender.sendMessage("§cVocê não pode usar essa warp.");
@@ -45,7 +65,7 @@ public class WarpSet implements CommandExecutor{
 			}.startAfter();
  			return true;
 		}
-		sender.sendMessage("§c Use /warp <nome>");
+		sender.sendMessage("§cUse /warp <nome>");
 		return true;
 	}
 }

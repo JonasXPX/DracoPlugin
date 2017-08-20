@@ -30,7 +30,6 @@ public class ListemPlayer {
 			json = new JSONObject(jsonData);
 		}
 		configurePlayer();
-		System.out.println(json.toString());
 		estatisticas.add(new Dead(new Value(json.has(Type.DEAD.value) ? json.getJSONArray(Type.DEAD.value).getDouble(0) : 0)));
 		estatisticas.add(new Kills(new Value(json.has(Type.KILLS.value) ? json.getJSONArray(Type.KILLS.value).getDouble(0) : 0)));
 		estatisticas.add(new MobKills(new Value(json.has(Type.MOBKILLS.value) ? json.getJSONArray(Type.MOBKILLS.value).getDouble(0) : 0)));

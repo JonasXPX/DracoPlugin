@@ -38,6 +38,7 @@ import me.jonasxpx.meuplugin2.karma.KarmaDb;
 import me.jonasxpx.meuplugin2.karma.KarmaTagUpdate;
 import me.jonasxpx.meuplugin2.listeners.ChatEvent;
 import me.jonasxpx.meuplugin2.listeners.EstatisticasListeners;
+import me.jonasxpx.meuplugin2.listeners.FirstRegisterEvent;
 import me.jonasxpx.meuplugin2.listeners.GlitchFix;
 import me.jonasxpx.meuplugin2.listeners.KarmaListener;
 import me.jonasxpx.meuplugin2.listeners.MessagesListeners;
@@ -82,6 +83,7 @@ public class MeuPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new ToolsWere(), this);
 		getServer().getPluginManager().registerEvents(new MessagesListeners(), this);
 		getServer().getPluginManager().registerEvents(new GlitchFix(), this);
+		getServer().getPluginManager().registerEvents(new FirstRegisterEvent(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());
 		getCommand("delwarp").setExecutor(new DelWarp());

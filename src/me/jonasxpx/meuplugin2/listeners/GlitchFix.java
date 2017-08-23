@@ -3,6 +3,7 @@ package me.jonasxpx.meuplugin2.listeners;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,6 +16,14 @@ public class GlitchFix implements Listener{
 	@EventHandler
 	public void placeBlock(BlockPlaceEvent e){
 		if(e.getBlock().getType() == Material.JUKEBOX){
+			e.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onBreak(BlockBreakEvent e){
+		if(e.getBlock().getType() == Material.MOB_SPAWNER){
+			e.getPlayer().sendMessage("§cDesculpe, mas você não pode quebrar o mobspawner.");
 			e.setCancelled(true);
 		}
 	}

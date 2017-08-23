@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
@@ -45,6 +46,7 @@ import me.jonasxpx.meuplugin2.listeners.MessagesListeners;
 import me.jonasxpx.meuplugin2.listeners.PlayerInteractEvents;
 import me.jonasxpx.meuplugin2.listeners.TerrenoListeners;
 import me.jonasxpx.meuplugin2.listeners.ToolsWere;
+import me.jonasxpx.meuplugin2.listeners.WarpInventoryListener;
 import me.jonasxpx.meuplugin2.managers.HomeManagerSQL;
 import me.jonasxpx.meuplugin2.managers.StatusDataBase;
 import me.jonasxpx.meuplugin2.mobcontrol.MobControl;
@@ -62,6 +64,7 @@ public class MeuPlugin extends JavaPlugin{
 	public static StatusDataBase statusDb;
 	private static ArrayList<Karma> players = Lists.newArrayList();
 	private static ArrayList<ListemPlayer> statusPlayers = Lists.newArrayList();
+	public static List<String> warpItens = null;
 	private static LinkedHashMap<String, String> groupTags = null;
 	public Map<String, Double> chatMinMoney = null;
 	public Map<Messages, String> messages = null;
@@ -86,6 +89,7 @@ public class MeuPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new MessagesListeners(), this);
 		getServer().getPluginManager().registerEvents(new GlitchFix(), this);
 		getServer().getPluginManager().registerEvents(new FirstRegisterEvent(), this);
+		getServer().getPluginManager().registerEvents(new WarpInventoryListener(), this);
 		getCommand("worldset").setExecutor(new WorldSet());
 		getCommand("warp").setExecutor(new WarpSet());
 		getCommand("delwarp").setExecutor(new DelWarp());
@@ -132,6 +136,7 @@ public class MeuPlugin extends JavaPlugin{
 	
 	protected void loadConfig(){
 		groupTags = new LinkedHashMap<String, String>();
+		warpItens = Lists.newArrayList();
 		getConfig().getConfigurationSection("GroupTag").getKeys(true).forEach(g ->{
 			groupTags.put(g, ChatColor.translateAlternateColorCodes('&', getConfig().getString("GroupTag." + g)));
 		});
@@ -156,6 +161,11 @@ public class MeuPlugin extends JavaPlugin{
 			getConfig().addDefault("messages.deadbyplayer", "");
 			saveConfig();
 		}
+		if(!getConfig().contains("warp_itens")){
+			getConfig().addDefault("warp_itens", new String[]{});
+			saveConfig();
+		}
+		warpItens.addAll(getConfig().getStringList("warp_itens"));
 		
 		this.mobControlDelay = getConfig().getInt("mobcontrol.delay");
 		this.mobControlLimit = getConfig().getInt("mobcontrol.limit");

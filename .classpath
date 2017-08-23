@@ -16,7 +16,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="G:/Users/jonas/Desktop/MiniServer/spigot152.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/FixSpigot.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
@@ -26,9 +26,10 @@
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/Legendchat.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/WorldGuard.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/Vault-1.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JonasXPX/Downloads/NametagEdit.jar"/>
-	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/NametagEdit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JonasXPX/Dropbox/NametagEdit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JonasXPX/Dropbox/Filmes/NametagEdit.jar"/>
 	<classpathentry kind="lib" path="commons-io-2.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/CombatTagReload.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JonasXPX/Desktop/Super mini server/plugins/AuthMe(1).jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

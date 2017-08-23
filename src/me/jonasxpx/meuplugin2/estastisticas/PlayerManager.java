@@ -9,7 +9,6 @@ public class PlayerManager {
 	public static void load(Player player){
 		ListemPlayer listem = new ListemPlayer(player);
 		MeuPlugin.getStatusPlayer().add(listem);
-		MeuPlugin.getStatusPlayer().forEach(v -> System.out.println(v.getPlayer().getName()));
 	}
 	
 	public static void unload(Player player){

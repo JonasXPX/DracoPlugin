@@ -42,7 +42,6 @@ public class Utils {
 	}
 	
 	public static boolean isToFarm(Block block){
-		//System.out.println("Checking block: " + block.getType() + " Data: " + block.getData());
 		switch(block.getType()){
 		case RED_ROSE:
 			return true;

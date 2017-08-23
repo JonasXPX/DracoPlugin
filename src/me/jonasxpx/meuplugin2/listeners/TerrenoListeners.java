@@ -2,7 +2,6 @@ package me.jonasxpx.meuplugin2.listeners;
 
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

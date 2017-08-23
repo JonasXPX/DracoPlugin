@@ -24,6 +24,11 @@ public class MinerarCmd implements CommandExecutor{
 					sender.sendMessage("§cNão foi possível teleportar, você está em combate.");
 					return;
 				}
+				sender.sendMessage(
+						  "§c---------------------------------------------\n"
+						+ "§4§lAtenção: §cEste mundo reseta ao reiniciar\n"
+						+ "§4Qualquer construção aqui será perdida após reiniciar\n"
+						+ "§c---------------------------------------------");
 				((Player)sender).teleport(Warp.getWarp("minerar"));
 				CallDelay.unregister(sender.getName());
 			}
